@@ -60,7 +60,21 @@ protected function getGlobalWidgets(): array
 }
 ```
 
-### 4. Usage
+#### 4. Register Widget Controller Route
+
+Add the route provider plugin to the "getRouteProvider"-function of your RouterDependencyProvider (src/Pyz/Yves/Router/RouterDependencyProvider.php)
+
+```php
+protected function getRouteProvider(): array
+    {
+        ...
+        new MultiVariantAddToCartWidgetRouteProviderPlugin(),
+        ...
+    ]
+}
+```
+
+### 5. Usage
 
 Simply call the  ```MultiVariantAddToCartWidget``` in your template
 
