@@ -1,0 +1,27 @@
+{
+    "name": "spryker-community/multi-variant-add-to-cart",
+    "description": "SprykerCommunity module to add multi-variant add-to-cart via a widget",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martin Voerster",
+            "email": "martin.voerster@turbinekreuzberg.com"
+        },
+        {
+            "name": "Sven Ommer",
+            "email": "sven.ommer@diva-e.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.3",
+        "spryker/product": "*",
+        "spryker/cart": "*",
+        "spryker/price": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SprykerCommunity\\": "src/SprykerCommunity/"
+        }
+    }
+}
