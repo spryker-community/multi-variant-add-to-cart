@@ -5,18 +5,65 @@
 
 ## Description
 
+This module will add a twig-widget, which can be used with an abstract product, which has multiple variants.
+The customer will then be able to bulk-add all the variants with their quantity.
 
 
-## B2B Demo Shop quick start
+## Prerequisites
 
-This section describes how to get started with the B2B Demo Shop quickly.
+1. Spryker B2B Demo Shop installed and running
+2. Git access to clone the test module
+3. Composer installed
 
 
+## Installation Steps
 
-### Prerequisites
-### Install the B2B Demo Shop
+### 1. Configure Spryker Core Namespaces
 
-1. Create a project folder and navigate into it:
+Add the SprykerCommunity namespace to your Spryker configuration:
+
+File: `config/Shared/config_default.php`
+
+```php
+<?php
+
+// Add SprykerCommunity to the core namespaces array
+$config[KernelConstants::CORE_NAMESPACES] = [
+    'SprykerCommunity',  // Add this line
+    'SprykerShop',
+    'SprykerEco',
+    'Spryker',
+    'SprykerSdk',
+];
+```
+
+### 2. Install the Module
+
+Run the composer require command from your demo shop root directory:
+
 ```bash
-mkdir spryker-b2b && cd spryker-b2b
+composer require spryker-community/multi-variant-add-to-cart
+```
+
+### 3. Adjust ShopApplicationDependencyProvider
+
+Add the class to the "getGlobalWidgets"-function of your ShopApplicationDependencyProvider:
+
+```php
+protected function getGlobalWidgets(): array
+{
+    return [
+        ...
+        MultiVariantAddToCartWidget::class,
+        ...
+    ]
+}
+```
+
+### 4. Usage
+
+Simply call the  ```MultiVariantAddToCartWidget``` in your template
+
+```
+{% widget 'MultiVariantAddToCartWidget' only %} {% endwidget %}
 ```
