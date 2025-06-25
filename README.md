@@ -65,5 +65,5 @@ protected function getGlobalWidgets(): array
 Simply call the  ```MultiVariantAddToCartWidget``` in your template
 
 ```
-{% widget 'MultiVariantAddToCartWidget' only %} {% endwidget %}
+{% widget 'MultiVariantAddToCartWidget' args [data.product] only %}{%endwidget%}
 ```

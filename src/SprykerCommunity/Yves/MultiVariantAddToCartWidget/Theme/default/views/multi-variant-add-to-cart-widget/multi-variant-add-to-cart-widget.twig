@@ -2,9 +2,18 @@
 
 {% define data = {
     products: _widget.products,
+    availableVariantAttributes: _widget.availableVariantAttributes,
 } %}
 
 
 {% block body %}
-    Hello World
+
+    {{ dump(data.availableVariantAttributes) }}
+
+    {% for variant in data.products %}
+        <p>
+            sku {{ variant.sku }} <br>
+            {{ dump(variant) }}
+        </p>
+    {% endfor %}
 {% endblock %}
