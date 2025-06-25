@@ -1,0 +1,62 @@
+{# @var product \Generated\Shared\Transfer\ItemTransfer #}
+
+{% extends model('component') %}
+
+{% define config = {
+    name: 'variant-form',
+} %}
+
+{% define data = {
+    products: required,
+    availableVariantAttributes: required,
+    addToCartAction: required,
+} %}
+
+{% block body %}
+    <form action="{{ data.addToCartAction }}" method="post">
+        <table>
+            {% block form_header %}
+                <tr>
+                    <th>
+                        {{ 'product.attribute.sku' | trans }}
+                    </th>
+                    {% for attributeName in data.availableVariantAttributes %}
+                        <th>
+                            {{ "product.attribute.#{attributeName}" | trans }}
+                        </th>
+                    {% endfor %}
+                    <th>
+                    </th>
+                </tr>
+            {% endblock %}
+
+            {% block form_body %}
+                {% for product in data.products %}
+                    <tr>
+                        <td>{{ product.sku }}</td>
+                        {% for attributeName in data.availableVariantAttributes %}
+                            <td>
+                                {% if product.details[attributeName] is defined %}
+                                    {{ product.details[attributeName] }}
+                                {% else %}
+                                -
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            {% include molecule('quantity-counter') with {
+                                modifiers: ['right-space'],
+                                attributes: {
+                                    min: 0,
+                                    value: 0,
+                                    name: "multi_variant_add_to_cart[#{product.sku}]"
+                                },
+                            } only %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endblock %}
+        </table>
+        <button type="submit" class="button button--big">{{ 'submit' | trans }}</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,1 @@
+import './variant-form.scss';

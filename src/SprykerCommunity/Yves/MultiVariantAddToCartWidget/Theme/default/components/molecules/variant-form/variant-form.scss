@@ -1,0 +1,11 @@
+@mixin multi-variant-add-to-cart-widget-variant-form($name: '.variant-form') {
+    #{$name} {
+        table {
+            border-collapse: separate;
+            border-spacing: 20px;
+        }
+        @content;
+    }
+}
+
+@include multi-variant-add-to-cart-widget-variant-form;

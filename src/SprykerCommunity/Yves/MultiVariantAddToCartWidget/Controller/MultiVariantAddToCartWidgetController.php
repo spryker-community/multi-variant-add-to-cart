@@ -16,7 +16,7 @@ class MultiVariantAddToCartWidgetController extends AbstractController
 
     public function indexAction(Request $request): RedirectResponse
     {
-        $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all());
+        $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all('multi_variant_add_to_cart'));
 
         return $this->redirectToReferer($request);
     }

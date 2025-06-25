@@ -74,7 +74,59 @@ protected function getRouteProvider(): array
 }
 ```
 
-### 5. Usage
+### 5. Adjust yves-build
+
+To get styles and javascript from the module, add the following to ```frontend/settings.js```
+
+> [!IMPORTANT]
+> If spyker-community are already in your project, you won't need this part.
+
+```js
+
+const globalSettings = {
+    ...
+    paths: {
+        ...
+        // community folders
+        community: './vendor/spryker-community',
+        ...
+    }
+    ...
+}
+
+
+const getAppSettingsByTheme = (namespaceConfig, theme, pathToConfig) => {
+    ...
+    const paths = {
+        ...
+        // community folders
+        community: globalSettings.paths.community,
+        ...
+    }
+    ...
+
+    // return settings
+    return {
+        ...
+        find: {
+        // entry point patterns (components)
+            componentEntryPoints: {
+                // absolute dirs in which look for
+                dirs: [
+                    join(globalSettings.context, paths.core),
+                    join(globalSettings.context, paths.eco),
+                        join(globalSettings.context, paths.community), // this position is cruicial
+                    join(globalSettings.context, paths.project),
+                ],
+                ...
+            }
+        ...
+    }
+    ...
+}
+```
+
+### 6. Usage
 
 Simply call the  ```MultiVariantAddToCartWidget``` in your template
 

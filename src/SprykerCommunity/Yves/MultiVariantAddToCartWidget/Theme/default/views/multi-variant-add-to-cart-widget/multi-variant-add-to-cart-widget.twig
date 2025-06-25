@@ -3,17 +3,15 @@
 {% define data = {
     products: _widget.products,
     availableVariantAttributes: _widget.availableVariantAttributes,
+    addToCartAction: _widget.addToCartAction,
 } %}
 
-
 {% block body %}
-
-    {{ dump(data.availableVariantAttributes) }}
-
-    {% for variant in data.products %}
-        <p>
-            sku {{ variant.sku }} <br>
-            {{ dump(variant) }}
-        </p>
-    {% endfor %}
+    {% include molecule('variant-form', 'MultiVariantAddToCartWidget') with {
+        data: {
+            products: data.products,
+            availableVariantAttributes: data.availableVariantAttributes,
+            addToCartAction: data.addToCartAction
+        },
+    } only %}
 {% endblock %}

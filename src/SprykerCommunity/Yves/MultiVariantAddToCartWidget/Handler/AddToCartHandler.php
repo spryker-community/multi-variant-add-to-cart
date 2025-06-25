@@ -19,20 +19,20 @@ class AddToCartHandler
     {
         $cartChangeTransfer = new CartChangeTransfer();
         $cartChangeTransfer->setQuote($this->cartClient->getQuote());
-        foreach ($parameters as $itemToAdd) {
+        foreach ($parameters as $sku => $qty) {
             $cartChangeTransfer->addItem(
-                $this->createItemTransfer($itemToAdd),
+                $this->createItemTransfer($sku, $qty),
             );
         }
 
         $quoteTransfer = $this->cartClient->addValidItems($cartChangeTransfer);
     }
 
-    protected function createItemTransfer(array $itemToAdd): ItemTransfer
+    protected function createItemTransfer(string $sku, int $qty): ItemTransfer
     {
         $itemTransfer = (new ItemTransfer())
-            ->setSku($itemToAdd['sku'])
-            ->setQuantity($itemToAdd['quantity']);
+            ->setSku($sku)
+            ->setQuantity($qty);
 
         return $itemTransfer;
     }
