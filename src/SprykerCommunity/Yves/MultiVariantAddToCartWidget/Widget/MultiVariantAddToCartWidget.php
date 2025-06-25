@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget\Widget;
 
@@ -7,11 +7,13 @@ use Generated\Shared\Transfer\ProductViewTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use SprykerCommunity\Yves\MultiVariantAddToCartWidget\Plugin\Router\MultiVariantAddToCartWidgetRouteProviderPlugin;
 
-class  MultiVariantAddToCartWidget extends AbstractWidget {
+class  MultiVariantAddToCartWidget extends AbstractWidget
+{
 
     protected const PRODUCTS_PARAMETER_NAME = 'products';
     protected const AVAILABLE_VARIANT_ATTRIBUTES_PARAMETER_NAME = 'availableVariantAttributes';
     protected const ADD_TO_ROUTE_ACTION = 'addToCartAction';
+    protected const IS_VISIBLE_PARAMETER_NAME = 'isVisible';
 
     public function __construct(ProductViewTransfer $productViewTransfer)
     {
@@ -31,17 +33,21 @@ class  MultiVariantAddToCartWidget extends AbstractWidget {
 
     protected function addProducts(ProductViewTransfer $productViewTransfer): void
     {
-        $productConcreteIds = $productViewTransfer->getAttributeMap()->getProductConcreteIds();
-        $variantMap = $productViewTransfer->getAttributeMap()->getAttributeVariantMap();
+        $productConcreteIds = $productViewTransfer->getAttributeMap()?->getProductConcreteIds();
+        $variantMap = $productViewTransfer->getAttributeMap()?->getAttributeVariantMap();
 
         $variantsToOrder = [];
-        $availableAttributes = array_keys($productViewTransfer->getAttributeMap()->getSuperAttributes());
+        $availableAttributes = [];
 
-        foreach ($productConcreteIds as $sku => $concreteId) {
-            $variantsToOrder[] = [
-                'sku' => $sku,
-                'details' => $variantMap[$concreteId]
-            ];
+        if ($productConcreteIds && $variantMap) {
+            $availableAttributes = array_keys($productViewTransfer->getAttributeMap()?->getSuperAttributes());
+
+            foreach ($productConcreteIds as $sku => $concreteId) {
+                $variantsToOrder[] = [
+                    'sku' => $sku,
+                    'details' => $variantMap[$concreteId]
+                ];
+            }
         }
 
         $this->addParameter(self::PRODUCTS_PARAMETER_NAME, $variantsToOrder);

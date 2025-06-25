@@ -6,6 +6,12 @@
     addToCartAction: _widget.addToCartAction,
 } %}
 
+{%- block template -%}
+    {% if data.products and data.availableVariantAttributes %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock -%}
+
 {% block body %}
     {% include molecule('variant-form', 'MultiVariantAddToCartWidget') with {
         data: {
