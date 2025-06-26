@@ -29,7 +29,7 @@ class MultiVariantAddToCartWidgetController extends AbstractController
 
     public function indexAction(Request $request): RedirectResponse
     {
-        $quoteTransfer = $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all('multi_variant_add_to_cart'));
+        $quoteTransfer = $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all(self::PARAMETER_MULTI_VARIANT_ADD_TO_CART));
 
         if($quoteTransfer->getErrors()->count() === 0) {
             $this->addSuccessMessage(static::GLOSSARY_KEY_ITEMS_ADDED_TO_CART_SUCCESS);
