@@ -79,7 +79,7 @@ class MultiVariantAddToCartWidget extends AbstractWidget
 
     protected function addRouteAction(): void
     {
-        $this->addParameter(static::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART);
+        $this->addParameter(static::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_MULTI_VARIANTS_ADD_TO_CART);
     }
 
     protected function getVariantPrice(int $idProductConcrete, int $idProductAbstract, int $quantity): CurrentProductPriceTransfer

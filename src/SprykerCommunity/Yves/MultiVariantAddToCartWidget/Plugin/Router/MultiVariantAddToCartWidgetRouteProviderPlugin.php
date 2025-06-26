@@ -12,6 +12,7 @@ class MultiVariantAddToCartWidgetRouteProviderPlugin extends AbstractRouteProvid
      * @var string
      */
     public const ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART = 'multi-variant-add-to-cart/add';
+    public const ROUTE_MULTI_VARIANTS_ADD_TO_CART = '/multi-variant-add-to-cart/add';
 
     public function addRoutes(RouteCollection $routeCollection): RouteCollection
     {
@@ -22,7 +23,7 @@ class MultiVariantAddToCartWidgetRouteProviderPlugin extends AbstractRouteProvid
 
     private function addAddItemsToCartRoute(RouteCollection $routeCollection): RouteCollection
     {
-        $route = $this->buildRoute('/multi-variant-add-to-cart/add', 'MultiVariantAddToCartWidget', 'MultiVariantAddToCartWidget', 'indexAction');
+        $route = $this->buildRoute('/' . static::ROUTE_MULTI_VARIANTS_ADD_TO_CART, 'MultiVariantAddToCartWidget', 'MultiVariantAddToCartWidget', 'indexAction');
         $routeCollection->add(static::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART, $route);
 
         return $routeCollection;
