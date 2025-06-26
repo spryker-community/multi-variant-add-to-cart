@@ -15,11 +15,30 @@ class MultiVariantAddToCartWidgetController extends AbstractController
     /**
      * @var string
      */
+    protected const PARAMETER_MULTI_VARIANT_ADD_TO_CART = 'multi_variant_add_to_cart';
+
+    /**
+     * @var string
+     */
     protected const PARAM_REFERER = 'referer';
+
+    /**
+     * @var string
+     */
+    protected const GLOSSARY_KEY_ITEMS_ADDED_TO_CART_SUCCESS ='customer.account.shopping_list.items.added_to_cart';
 
     public function indexAction(Request $request): RedirectResponse
     {
-        $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all('multi_variant_add_to_cart'));
+        $quoteTransfer = $this->getFactory()->createAddToCartHandler()->addItemsToCart($request->request->all('multi_variant_add_to_cart'));
+
+        if($quoteTransfer->getErrors()->count() === 0) {
+            $this->addSuccessMessage(static::GLOSSARY_KEY_ITEMS_ADDED_TO_CART_SUCCESS);
+            return $this->redirectToReferer($request);
+        }
+
+        foreach ($quoteTransfer->getErrors() as $error) {
+            $this->addErrorMessage($error->getMessage());
+        }
 
         return $this->redirectToReferer($request);
     }

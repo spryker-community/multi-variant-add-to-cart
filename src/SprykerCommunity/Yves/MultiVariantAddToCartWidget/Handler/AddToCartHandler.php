@@ -4,6 +4,7 @@ namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget\Handler;
 
 use Generated\Shared\Transfer\CartChangeTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Cart\CartClientInterface;
 
 class AddToCartHandler
@@ -15,7 +16,7 @@ class AddToCartHandler
         $this->cartClient = $cartClient;
     }
 
-    public function addItemsToCart(array $parameters): void
+    public function addItemsToCart(array $parameters): QuoteTransfer
     {
         $cartChangeTransfer = new CartChangeTransfer();
         $cartChangeTransfer->setQuote($this->cartClient->getQuote());
@@ -25,7 +26,7 @@ class AddToCartHandler
             );
         }
 
-        $this->cartClient->addValidItems($cartChangeTransfer);
+        return $this->cartClient->addValidItems($cartChangeTransfer);
     }
 
     protected function createItemTransfer(string $sku, int $qty): ItemTransfer
