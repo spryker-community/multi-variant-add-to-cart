@@ -17,7 +17,8 @@
         "php": ">=8.2",
         "spryker/product": "*",
         "spryker/cart": "*",
-        "spryker/price": "*"
+        "spryker/price": "*",
+        "spryker-shop/price-product-widget": "*"
     },
     "autoload": {
         "psr-4": {

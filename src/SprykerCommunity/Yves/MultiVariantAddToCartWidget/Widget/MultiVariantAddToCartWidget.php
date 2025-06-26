@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget\Widget;
 
+use Generated\Shared\Transfer\CurrentProductPriceTransfer;
+use Generated\Shared\Transfer\PriceProductFilterTransfer;
 use Generated\Shared\Transfer\ProductViewTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use SprykerCommunity\Yves\MultiVariantAddToCartWidget\Plugin\Router\MultiVariantAddToCartWidgetRouteProviderPlugin;
 
+/**
+ * @method \SprykerCommunity\Yves\MultiVariantAddToCartWidget\MultiVariantAddToCartWidgetFactory getFactory()
+ */
 class MultiVariantAddToCartWidget extends AbstractWidget
 {
  /**
@@ -48,6 +53,7 @@ class MultiVariantAddToCartWidget extends AbstractWidget
 
     protected function addProducts(ProductViewTransfer $productViewTransfer): void
     {
+        $productAbstractId = $productViewTransfer->getIdProductAbstract();
         $productConcreteIds = $productViewTransfer->getAttributeMap()?->getProductConcreteIds();
         $variantMap = $productViewTransfer->getAttributeMap()?->getAttributeVariantMap();
 
@@ -58,9 +64,11 @@ class MultiVariantAddToCartWidget extends AbstractWidget
             $availableAttributes = array_keys($productViewTransfer->getAttributeMap()?->getSuperAttributes());
 
             foreach ($productConcreteIds as $sku => $concreteId) {
+                $currentProductPriceTransfer = $this->getVariantPrice($concreteId, $productAbstractId, 1);
                 $variantsToOrder[] = [
                     'sku' => $sku,
                     'details' => $variantMap[$concreteId],
+                    'price' =>  $currentProductPriceTransfer->getPrice(),
                 ];
             }
         }
@@ -72,5 +80,17 @@ class MultiVariantAddToCartWidget extends AbstractWidget
     protected function addRouteAction(): void
     {
         $this->addParameter(static::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART);
+    }
+
+    protected function getVariantPrice($idProductConcrete, $idProductAbstract, $quantity): CurrentProductPriceTransfer
+    {
+        $priceProductFilterTransfer = (new PriceProductFilterTransfer())
+            ->setQuantity($quantity)
+            ->setIdProduct($idProductConcrete)
+            ->setIdProductAbstract($idProductAbstract);
+
+        return $this->getFactory()
+            ->getPriceProductStorageClient()
+            ->getResolvedCurrentProductPriceTransfer($priceProductFilterTransfer);
     }
 }

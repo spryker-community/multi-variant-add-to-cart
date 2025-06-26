@@ -2,7 +2,22 @@
     #{$name} {
         table {
             border-collapse: separate;
-            border-spacing: 20px;
+
+            tr:nth-child(even) {
+                background-color: $setting-color-gray-6;
+            }
+
+            th,td {
+                padding: 10px 20px;
+            }
+
+            th {
+                font-weight: fw(bold);
+            }
+
+            td {
+                text-align: left;
+            }
         }
         @content;
     }
