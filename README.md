@@ -24,14 +24,14 @@ The widget displays a table of product variants with their attributes and quanti
 +----------------------------------------------------------+
 | Multi-Variant Add to Cart                                |
 +----------------------------------------------------------+
-| Variant       | Color  | Size  | Quantity  |             |
+| Variant       | Color  | Size  | Quantity  |    Price    |
 |---------------|--------|-------|-----------|-------------|
-| Product SKU-1 | Red    | S     | [   1   ] |             |
-| Product SKU-2 | Red    | M     | [   0   ] |             |
-| Product SKU-3 | Red    | L     | [   2   ] |             |
-| Product SKU-4 | Blue   | S     | [   0   ] |             |
-| Product SKU-5 | Blue   | M     | [   1   ] |             |
-| Product SKU-6 | Blue   | L     | [   0   ] |             |
+| Product SKU-1 | Red    | S     | [   1   ] |     1$      |
+| Product SKU-2 | Red    | M     | [   0   ] |     1$      |
+| Product SKU-3 | Red    | L     | [   2   ] |     1$      |
+| Product SKU-4 | Blue   | S     | [   0   ] |     1$      |
+| Product SKU-5 | Blue   | M     | [   1   ] |     1$      |
+| Product SKU-6 | Blue   | L     | [   0   ] |     1$      |
 +----------------------------------------------------------+
 |                                    [  Add to Cart  ]     |
 +----------------------------------------------------------+
