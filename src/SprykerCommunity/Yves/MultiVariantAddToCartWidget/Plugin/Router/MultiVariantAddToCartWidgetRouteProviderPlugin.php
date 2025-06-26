@@ -1,5 +1,6 @@
 <?php
 
+
 namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget\Plugin\Router;
 
 use Spryker\Yves\Router\Plugin\RouteProvider\AbstractRouteProviderPlugin;
@@ -7,7 +8,9 @@ use Spryker\Yves\Router\Route\RouteCollection;
 
 class MultiVariantAddToCartWidgetRouteProviderPlugin extends AbstractRouteProviderPlugin
 {
-
+    /**
+     * @var string
+     */
     public const ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART = 'multi-variant-add-to-cart/add';
 
     public function addRoutes(RouteCollection $routeCollection): RouteCollection

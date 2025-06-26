@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget\Widget;
@@ -7,12 +8,26 @@ use Generated\Shared\Transfer\ProductViewTransfer;
 use Spryker\Yves\Kernel\Widget\AbstractWidget;
 use SprykerCommunity\Yves\MultiVariantAddToCartWidget\Plugin\Router\MultiVariantAddToCartWidgetRouteProviderPlugin;
 
-class  MultiVariantAddToCartWidget extends AbstractWidget
+class MultiVariantAddToCartWidget extends AbstractWidget
 {
-
+ /**
+  * @var string
+  */
     protected const PRODUCTS_PARAMETER_NAME = 'products';
+
+    /**
+     * @var string
+     */
     protected const AVAILABLE_VARIANT_ATTRIBUTES_PARAMETER_NAME = 'availableVariantAttributes';
+
+    /**
+     * @var string
+     */
     protected const ADD_TO_ROUTE_ACTION = 'addToCartAction';
+
+    /**
+     * @var string
+     */
     protected const IS_VISIBLE_PARAMETER_NAME = 'isVisible';
 
     public function __construct(ProductViewTransfer $productViewTransfer)
@@ -45,17 +60,17 @@ class  MultiVariantAddToCartWidget extends AbstractWidget
             foreach ($productConcreteIds as $sku => $concreteId) {
                 $variantsToOrder[] = [
                     'sku' => $sku,
-                    'details' => $variantMap[$concreteId]
+                    'details' => $variantMap[$concreteId],
                 ];
             }
         }
 
-        $this->addParameter(self::PRODUCTS_PARAMETER_NAME, $variantsToOrder);
-        $this->addParameter(self::AVAILABLE_VARIANT_ATTRIBUTES_PARAMETER_NAME, $availableAttributes);
+        $this->addParameter(static::PRODUCTS_PARAMETER_NAME, $variantsToOrder);
+        $this->addParameter(static::AVAILABLE_VARIANT_ATTRIBUTES_PARAMETER_NAME, $availableAttributes);
     }
 
     protected function addRouteAction(): void
     {
-        $this->addParameter(self::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART);
+        $this->addParameter(static::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART);
     }
 }

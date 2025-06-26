@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MultiVariantAddToCartWidgetController extends AbstractController
 {
+    /**
+     * @var string
+     */
     protected const PARAM_REFERER = 'referer';
 
     public function indexAction(Request $request): RedirectResponse

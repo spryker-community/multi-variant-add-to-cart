@@ -25,7 +25,7 @@ class AddToCartHandler
             );
         }
 
-        $quoteTransfer = $this->cartClient->addValidItems($cartChangeTransfer);
+        $this->cartClient->addValidItems($cartChangeTransfer);
     }
 
     protected function createItemTransfer(string $sku, int $qty): ItemTransfer

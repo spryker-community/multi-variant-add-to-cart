@@ -1,5 +1,6 @@
 <?php
 
+
 namespace SprykerCommunity\Yves\MultiVariantAddToCartWidget;
 
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
@@ -7,6 +8,9 @@ use Spryker\Yves\Kernel\Container;
 
 class MultiVariantAddToCartWidgetDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const CLIENT_CART = 'CLIENT_CART';
 
     public function provideDependencies(Container $container): Container
