@@ -137,21 +137,49 @@ To include styles and JavaScript from the module, you need to update your fronte
 > [!IMPORTANT]
 > If spryker-community modules are already configured in your project, you can skip this step.
 
-1. Add the community path to the `globalSettings.paths` object
-2. Add the community path to the paths object in `getAppSettingsByTheme`
-3. Add the community path to the component entry points dirs array, making sure it's positioned between eco and project paths
+```js
 
-Here's a simplified example of what you need to add:
+const globalSettings = {
+    ...
+    paths: {
+        ...
+        // community folders
+        community: './vendor/spryker-community',
+        ...
+    }
+    ...
+}
 
-```bash
-# Add to globalSettings.paths
-community: './vendor/spryker-community'
 
-# Add to paths in getAppSettingsByTheme
-community: globalSettings.paths.community
+const getAppSettingsByTheme = (namespaceConfig, theme, pathToConfig) => {
+    ...
+    const paths = {
+        ...
+        // community folders
+        community: globalSettings.paths.community,
+        ...
+    };
+    ...
 
-# Add to componentEntryPoints.dirs array (position is important)
-join(globalSettings.context, paths.community)  # Add between eco and project
+    // return settings
+    return {
+        ...
+        find: {
+        // entry point patterns (components)
+            componentEntryPoints: {
+                // absolute dirs in which look for
+                dirs: [
+                    join(globalSettings.context, paths.core),
+                    join(globalSettings.context, paths.eco),
+                        join(globalSettings.context, paths.community), // this position is cruicial
+                    join(globalSettings.context, paths.project),
+                ],
+                ...
+            },
+        ...
+    };
+    ...
+};
 ```
 
 4. After making these changes, rebuild your frontend assets:
