@@ -20,6 +20,9 @@
         "spryker/price": "*",
         "spryker-shop/price-product-widget": "*"
     },
+    "require-dev": {
+        "spryker/testify": "*"
+    },
     "autoload": {
         "psr-4": {
             "SprykerCommunity\\": "src/SprykerCommunity/"

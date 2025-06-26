@@ -15,9 +15,9 @@ use SprykerCommunity\Yves\MultiVariantAddToCartWidget\Plugin\Router\MultiVariant
  */
 class MultiVariantAddToCartWidget extends AbstractWidget
 {
- /**
-  * @var string
-  */
+    /**
+     * @var string
+     */
     protected const PRODUCTS_PARAMETER_NAME = 'products';
 
     /**
@@ -68,7 +68,7 @@ class MultiVariantAddToCartWidget extends AbstractWidget
                 $variantsToOrder[] = [
                     'sku' => $sku,
                     'details' => $variantMap[$concreteId],
-                    'price' =>  $currentProductPriceTransfer->getPrice(),
+                    'price' => $currentProductPriceTransfer->getPrice(),
                 ];
             }
         }
@@ -82,7 +82,7 @@ class MultiVariantAddToCartWidget extends AbstractWidget
         $this->addParameter(static::ADD_TO_ROUTE_ACTION, MultiVariantAddToCartWidgetRouteProviderPlugin::ROUTE_NAME_MULTI_VARIANTS_ADD_TO_CART);
     }
 
-    protected function getVariantPrice($idProductConcrete, $idProductAbstract, $quantity): CurrentProductPriceTransfer
+    protected function getVariantPrice(int $idProductConcrete, int $idProductAbstract, int $quantity): CurrentProductPriceTransfer
     {
         $priceProductFilterTransfer = (new PriceProductFilterTransfer())
             ->setQuantity($quantity)

@@ -4,8 +4,12 @@ namespace SprykerCommunityTest\Yves\MultiVariantAddToCartWidget\Widget;
 
 use Codeception\Test\Unit;
 use Generated\Shared\Transfer\AttributeMapStorageTransfer;
+use Generated\Shared\Transfer\CurrentProductPriceTransfer;
 use Generated\Shared\Transfer\ProductViewTransfer;
+use SprykerCommunity\Yves\MultiVariantAddToCartWidget\MultiVariantAddToCartWidgetDependencyProvider;
 use SprykerCommunity\Yves\MultiVariantAddToCartWidget\Widget\MultiVariantAddToCartWidget;
+use SprykerCommunityTest\Yves\MultiVariantAddToCartWidget\MultiVariantAddToCartWidgetTester;
+use SprykerShop\Yves\PriceProductWidget\Dependency\Client\PriceProductWidgetToPriceProductStorageClientInterface;
 
 class MultiVariantAddToCartWidgetTest extends Unit
 {
@@ -15,6 +19,8 @@ class MultiVariantAddToCartWidgetTest extends Unit
 
     protected AttributeMapStorageTransfer $attributeMapTransfer;
 
+    protected MultiVariantAddToCartWidgetTester $tester;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -23,6 +29,7 @@ class MultiVariantAddToCartWidgetTest extends Unit
 
         $this->productViewTransfer = new ProductViewTransfer();
         $this->productViewTransfer->setAttributeMap($this->attributeMapTransfer);
+        $this->productViewTransfer->setIdProductAbstract(1);
     }
 
     public function testGetNameReturnsCorrectWidgetName(): void
@@ -65,23 +72,36 @@ class MultiVariantAddToCartWidgetTest extends Unit
         $this->attributeMapTransfer->setAttributeVariantMap($variantMap);
         $this->attributeMapTransfer->setSuperAttributes($superAttributes);
 
+        // Create mock for PriceProductStorageClient
+        $priceProductStorageClientMock = $this->createMock(PriceProductWidgetToPriceProductStorageClientInterface::class);
+        $priceProductStorageClientMock->method('getResolvedCurrentProductPriceTransfer')
+            ->willReturn((new CurrentProductPriceTransfer())->setPrice(1000));
+
+
+        $this->tester->setDependency(
+            MultiVariantAddToCartWidgetDependencyProvider::CLIENT_PRICE_PRODUCT_STORAGE,
+            $priceProductStorageClientMock,
+        );
+
         // Act
         $widget = new MultiVariantAddToCartWidget($this->productViewTransfer);
 
         // Assert
+        $widgetParameters = $widget->getParameters();
         $expectedProducts = [
             [
                 'sku' => 'sku1',
                 'details' => ['color' => 'red', 'size' => 'M'],
+                'price' => 1000,
             ],
             [
                 'sku' => 'sku2',
                 'details' => ['color' => 'blue', 'size' => 'L'],
+                'price' => 1000,
             ],
         ];
 
         $expectedAttributes = ['color', 'size'];
-        $widgetParameters = $widget->getParameters();
 
         $this->assertSame($expectedProducts, $widgetParameters['products']);
         $this->assertSame($expectedAttributes, $widgetParameters['availableVariantAttributes']);
