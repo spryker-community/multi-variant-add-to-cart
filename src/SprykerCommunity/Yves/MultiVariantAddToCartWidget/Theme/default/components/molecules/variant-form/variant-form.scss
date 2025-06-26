@@ -2,6 +2,7 @@
     #{$name} {
         table {
             border-collapse: separate;
+            width: 100%;
 
             tr:nth-child(even) {
                 background-color: $setting-color-gray-6;
@@ -17,6 +18,19 @@
 
             td {
                 text-align: left;
+            }
+        }
+
+        &__variant-quantity {
+            width: 20%;
+        }
+
+        &__variant-price {
+            text-align: right;
+
+            .money-price {
+                display: grid;
+                justify-items: end;
             }
         }
         @content;

@@ -46,7 +46,7 @@
                                 {% endif %}
                             </td>
                         {% endfor %}
-                        <td>
+                        <td class="{{ config.name }}__variant-quantity">
                             {% include molecule('quantity-counter') with {
                                 modifiers: ['right-space'],
                                 attributes: {
@@ -56,7 +56,7 @@
                                 },
                             } only %}
                         </td>
-                        <td>
+                        <td class="{{ config.name }}__variant-price">
                             {% include molecule('money-price') with {
                                 data: {
                                     amount: product.price,
